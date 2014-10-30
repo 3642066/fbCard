@@ -1,7 +1,12 @@
 <html>
 	<head>
 		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="lib/CODE128.js"></script>
+		<script src="lib/JsBarcode.js"></script>
+		
 		<title>My Social vCard</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<style>
 			#controler_div
 			{
@@ -11,37 +16,17 @@
 				margin-left : 40%;
 				float : left;
 			}
-			#search {
-				width:350px;
-				height : 80px;
-				border-style : solid ;
-				border-width : 2px;
-				border-color : green;
-				color : white;
-				font-size : 50px ; 
-				text-align : center;
-				background-color:#C0C0C0 ;
- 
-			}
 			
-			#btn 
-			{
-				width:250px;
-				height : 50px;
-				border-style : solid ;
-				border-width : 4px; 
-				color : orange ;
-				font-size : 35px ; 
-				background-color : gray;
-				margin-left: 12%;
-				margin-top: 10px;
+			.like_div {
+
+				width: 370px ;
+				height: 115px ;
 				
+				float: left;
 			}
+
+
 			
-			#btn:hover
-			{
-				color : white;
-			}
 			</style>
 	<body>
 		
@@ -50,53 +35,100 @@
 		</style>
 	</head>
 		<!-- front -->
-		 <div id="container" style="background-color:rgb(18,23,46);width:650px;height:404px;margin-left:0;float:left">
-			 <div id="noLikes" style="width:200px;height:404px;float:left; background-color:yellow;">
-				<div id="thumbs" style="height:200px; margin-left:35px;margin-top:20px;">
-					<img src="assets/thumbs.png" width="130px" height="150px" />
-				</div>
-				<p id= "likes" style="font-size:30px; margin-top:10px;text-align:center;font-family:segoe ui">Likes</p>
-				<p id="page_name" style="margin-top:100px;text-align:center;font-family:segoe ui"></p>
-			 </div>
-			 
-			 <img id="cover" src="" width = "450px" height = "404px" style="float:right;"/>
-			 
-		</div>
 		
-		<!-- Back -->
-		<div id="container" style="background-color:rgb(18,23,46);width:650px;height:404px;margin-left:20px;float:left;">
-			 
-			 <div id="noLikes" style="width:200px;height:404px;float:left; background-color:yellow;">
-				<div id="logo_div" style="height:50px; text-align:center;margin-top:90%;">
-					<p id="logo" style="font-family: segoe ui;font-size: 49px;font-weight: lighter;"></p>
-				</div>
-				<p id= "address" style="margin-top:110px;margin-left:10px;font-family:segoe ui"></p>
-			 </div>
-			 
-			 
-			 
-			 <img id="profile_pic" src="" width = "450px" height = "404px" style="float:right;"/>
-			 
-		</div>
-		
-		
-		<div id="controler_div">
+			 <div style="background-color:rgb(18,23,46);width:550px;height:350px;margin-left:8%;float:left;margin-top:19px">
+				 <div id="noLikes" style="width:180px;height:350px;float:left; background-color:yellow;">
+					<div id="thumbs" style="height:200px; margin-left:35px;margin-top:93px;">
+						<img id="logo_pp"  src=""  />
+					</div>
+					<p id= "page_name" style="font-size:30px; margin-top:-80px;text-align:center;font-family:segoe ui"></p>
+					
+				 </div>
+				 
+				 <img id="cover" src="" width = "370px" height = "235px" style="float:right;"/>
+				 <div class="like_div">
+				 	<div style="float:left;margin-left: 53px;margin-top: 11px;">
+				 		<img src="assets/thumbs.png" width="80" height="80">
+				 	</div>
+				 	<div style="float:left;margin-top: 34px;margin-left: 20px;">
+				 		<p id="likes" style="font-family:segoe ui;font-size:30px;color:white">Likes</p>
+				 	</div>
+				 </div>
+			</div>
 			
-			<input type="text" name="search" id="search" value="" placeholder="Start typing" /><br>
-			<button id="btn" onClick="setUrl();">Make vCard</button>
+			<!-- Back -->
+			<div style="background-color:rgb(18,23,46);width:550px;height:350px;margin-left:20px;float:left;margin-top:19px">
+				 
+				 <div id="noLikes" style="width:180px;height:350px;float:left; background-color:yellow;">
+					<div id="logo_div" style="height:50px; text-align:center;margin-top:50%;">
+						<p id="logo" style="font-family: segoe ui;font-size: 25px;font-weight: lighter;"></p>
+					</div>
+					<p id= "address" style="margin-top:118px;margin-left:10px;font-family:segoe ui"></p>
+				 </div>
+				 
+				 
+
+				 <div style="width:370px;height:235px;float:right;">
+				 	<div style="margin-left: 10px;
+						color: white;
+						font-family: segoe ui;
+						font-weight: lighter;
+						margin-top: 34px;">
+				 		<h5>Company Overview</h5>
+				 	</div>
+				 	<div style="margin-top: 26px;color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+				 		<p id="overview"></p>
+				 	</div>
+
+				 	<div style="margin-left: 10px;
+						color: white;
+						font-family: segoe ui;
+						font-weight: lighter;margin-top: 25px;">
+				 		<h5>Specialist in :</h5>
+				 		<p id="catagory"></p>
+				 	</div>
+				 	<div style="color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+				 		<p id="founded"></p>
+				 		<h5>Website :</h5>
+				 		<p id="website"></p>
+				 	</div>
+
+				 	<div style="margin-left: 62px;margin-top: 22px;">
+								<img id="barcode2"/>
+								<script>$("#barcode2").JsBarcode("Javascript is fun!",{width:1,height:25});</script>
+					</div>
+				 </div>
+				 <div>
+				 		<!-- bacode -->
+						<!--  -->
+				 </div>
+				 
+				 
+				
+				 
+			</div>
+	
+		<div id="controler_div">
+		    <div class="input-group">
+		      <input type="text" name="search" id="search" value="" class="form-control input-lg" value="" required="required" pattern="" title="" placeholder="page name">
+		      <span class="input-group-btn">
+		      <button class="btn btn-lg btn-success"   id="btn" type="button" onClick="setUrl();">Go!</button>
+		      </span>
+		    </div><!-- /input-group -->
 		</div>
-		
+
+	
 		<script>
 		function setUrl() {
 				var url = "https://graph.facebook.com/";
-				var user_input = document.getElementById("search").value;
+				var user_input = $("#search").val();
 				var fina_url = url+user_input;
 				
 				if(user_input=="")
 				{
 				
 					$("likes").html("Oooi Miya ! ");
-					$("#cover").attr("src","assets/miya.png");
+					$("#cover").attr("src","assets/miya.jpg");
 					$("page_name").html("");
 					
 					
@@ -107,18 +139,25 @@
 				$.getJSON(fina_url, function(data) {
 				
 						
-						
+						$("#logo_pp").attr("src",fina_url+"/picture?width=108&height=120");
+						$("#page_name").html(data.name);
 						$("#cover").attr("src",data.cover.source);
 						$("#likes").html(data.likes);
-						$("#page_name").html(data.name);
 						$("#logo").html(data.name);
+						$("#catagory").html(data.category);
+						$("#founded").html("founded : " + data.founded);
+						$("#website").html(data.website);
+						$("#overview").html(data.company_overview);
+						
+
+
 						$("#address").html(data.location.city + ', ' + data.location.state + ', ' + data.location.street + ', ' + data.location.zip + ', '+ data.location.country);
 						
 				})
 				.success(function() {  })
 				.error(function() { 
 						$("#likes").html("Errrrrr..");
-						$("#cover").attr("src","assets/err.png");
+						$("#cover").attr("src","assets/err.jpg");
 						$("page_name").html("");
 					
 				})
