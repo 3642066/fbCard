@@ -1,0 +1,138 @@
+<html>
+	<head>
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<title>My Social vCard</title>
+		<style>
+			#controler_div
+			{
+				width : 400px;
+				height : 200px ;
+				margin-top : 25px;
+				margin-left : 40%;
+				float : left;
+			}
+			#search {
+				width:350px;
+				height : 80px;
+				border-style : solid ;
+				border-width : 2px;
+				border-color : green;
+				color : white;
+				font-size : 50px ; 
+				text-align : center;
+				background-color:#C0C0C0 ;
+ 
+			}
+			
+			#btn 
+			{
+				width:250px;
+				height : 50px;
+				border-style : solid ;
+				border-width : 4px; 
+				color : orange ;
+				font-size : 35px ; 
+				background-color : gray;
+				margin-left: 12%;
+				margin-top: 10px;
+				
+			}
+			
+			#btn:hover
+			{
+				color : white;
+			}
+			</style>
+	<body>
+		
+			
+		
+		</style>
+	</head>
+		<!-- front -->
+		 <div id="container" style="background-color:rgb(18,23,46);width:650px;height:404px;margin-left:0;float:left">
+			 <div id="noLikes" style="width:200px;height:404px;float:left; background-color:yellow;">
+				<div id="thumbs" style="height:200px; margin-left:35px;margin-top:20px;">
+					<img src="assets/thumbs.png" width="130px" height="150px" />
+				</div>
+				<p id= "likes" style="font-size:30px; margin-top:10px;text-align:center;font-family:segoe ui">Likes</p>
+				<p id="page_name" style="margin-top:100px;text-align:center;font-family:segoe ui"></p>
+			 </div>
+			 
+			 <img id="cover" src="" width = "450px" height = "404px" style="float:right;"/>
+			 
+		</div>
+		
+		<!-- Back -->
+		<div id="container" style="background-color:rgb(18,23,46);width:650px;height:404px;margin-left:20px;float:left;">
+			 
+			 <div id="noLikes" style="width:200px;height:404px;float:left; background-color:yellow;">
+				<div id="logo_div" style="height:50px; text-align:center;margin-top:90%;">
+					<p id="logo" style="font-family: segoe ui;font-size: 49px;font-weight: lighter;"></p>
+				</div>
+				<p id= "address" style="margin-top:110px;margin-left:10px;font-family:segoe ui"></p>
+			 </div>
+			 
+			 
+			 
+			 <img id="profile_pic" src="" width = "450px" height = "404px" style="float:right;"/>
+			 
+		</div>
+		
+		
+		<div id="controler_div">
+			
+			<input type="text" name="search" id="search" value="" placeholder="Start typing" /><br>
+			<button id="btn" onClick="setUrl();">Make vCard</button>
+		</div>
+		
+		<script>
+		function setUrl() {
+				var url = "https://graph.facebook.com/";
+				var user_input = document.getElementById("search").value;
+				var fina_url = url+user_input;
+				
+				if(user_input=="")
+				{
+				
+					$("likes").html("Oooi Miya ! ");
+					$("#cover").attr("src","assets/miya.png");
+					$("page_name").html("");
+					
+					
+				} else {
+				
+				// try 
+				
+				$.getJSON(fina_url, function(data) {
+				
+						
+						
+						$("#cover").attr("src",data.cover.source);
+						$("#likes").html(data.likes);
+						$("#page_name").html(data.name);
+						$("#logo").html(data.name);
+						$("#address").html(data.location.city + ', ' + data.location.state + ', ' + data.location.street + ', ' + data.location.zip + ', '+ data.location.country);
+						
+				})
+				.success(function() {  })
+				.error(function() { 
+						$("#likes").html("Errrrrr..");
+						$("#cover").attr("src","assets/err.png");
+						$("page_name").html("");
+					
+				})
+				.complete(function() {  });
+				
+				
+				//
+				
+				}
+				//var refreshId = setInterval("setUrl()", 8000);
+				
+			};
+		
+		</script>
+	
+	</body>
+</html>	
