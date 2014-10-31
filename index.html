@@ -25,7 +25,15 @@
 				float: left;
 			}
 
+			.back_section_header {
+				color: white;
+				font-family: segoe ui;
+				font-weight: lighter;
+			}
 
+			.back_left_margin_10 {
+				margin-left: 10px;
+			}
 			
 			</style>
 	<body>
@@ -63,31 +71,26 @@
 					<div id="logo_div" style="height:50px; text-align:center;margin-top:50%;">
 						<p id="logo" style="font-family: segoe ui;font-size: 25px;font-weight: lighter;"></p>
 					</div>
-					<p id= "address" style="margin-top:118px;margin-left:10px;font-family:segoe ui"></p>
+					<p id= "address" style="margin-top:118px;font-family:segoe ui" class="back_left_margin_10"></p>
 				 </div>
 				 
 				 
 
 				 <div style="width:370px;height:235px;float:right;">
-				 	<div style="margin-left: 10px;
-						color: white;
-						font-family: segoe ui;
-						font-weight: lighter;
-						margin-top: 34px;">
+				 	<div style="margin-top: 34px;" class="back_section_header back_left_margin_10">
 				 		<h5>Company Overview</h5>
 				 	</div>
-				 	<div style="margin-top: 26px;color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+					
+				 	<div style="margin-top: 26px" class="back_section_header back_left_margin_10">
 				 		<p id="overview"></p>
 				 	</div>
 
-				 	<div style="margin-left: 10px;
-						color: white;
-						font-family: segoe ui;
-						font-weight: lighter;margin-top: 25px;">
+				 	<div style="margin-top: 25px;" class="back_section_header back_left_margin_10">
 				 		<h5>Specialist in :</h5>
 				 		<p id="catagory"></p>
 				 	</div>
-				 	<div style="color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+					
+				 	<div class="back_section_header back_left_margin_10">
 				 		<p id="founded"></p>
 				 		<h5>Website :</h5>
 				 		<p id="website"></p>
@@ -95,7 +98,7 @@
 
 				 	<div style="margin-left: 62px;margin-top: 22px;background-color:white;width:68%">
 								<img id="barcode2"/>
-								<script</script>
+								<script></script>
 					</div>
 				 </div>
 				 <div>
@@ -135,8 +138,7 @@
 					
 				} else {
 				
-				// try 
-				
+				// try 				
 				$.getJSON(fina_url, function(data) {
 						
 						
