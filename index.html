@@ -165,7 +165,8 @@
 						$("#catagory").html(data.category);
 						$("#founded").html(data.founded);
 						$("#website").html(data.website);
-						var c_overview = (data.company_overview).slice(0,100);
+						
+						var c_overview = data.company_overview != undefined ? (data.company_overview).slice(0,100) : "None provided";
 						$("#overview").html(c_overview);
 						
 						// Store data.location so that we have a convenience copy
