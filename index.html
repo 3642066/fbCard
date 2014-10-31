@@ -153,9 +153,15 @@
 						var c_overview = (data.company_overview).slice(0,100);
 						$("#overview").html(c_overview);
 						
+						// Store data.location so that we have a convenience copy
+						var location = data.location;
+						// Create an array with the undefined elements removed
+						var validLocationDataArray = [ location.city, location.state, location.street, location.zip, location.country ]
+												.filter(function(x) { return x != undefined; });
+						// Make the address string from the valid location data
+						var addressString = validLocationDataArray.join(', ');
 
-
-						$("#address").html(data.location.city + ', ' + data.location.state + ', ' + data.location.street + ', ' + data.location.zip + ', '+ data.location.country);
+						$("#address").html(addressString);
 						
 				})
 				.success(function() {  })
