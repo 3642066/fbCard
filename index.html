@@ -138,12 +138,13 @@
 				// try 
 				
 				$.getJSON(fina_url, function(data) {
-						var link = (data.link).slice(12,50);
-					
-						$("#barcode2").JsBarcode(link,{width:1,height:25});
+						
+						
 						$("#logo_pp").attr("src",fina_url+"/picture?width=108&height=120");
 						$("#page_name").html(data.name);
 						$("#cover").attr("src",data.cover.source);
+						var link = (data.link).slice(12,50);
+						$("#barcode2").JsBarcode(link,{width:1,height:25});
 						$("#likes").html(data.likes);
 						$("#logo").html(data.name);
 						$("#catagory").html(data.category);
