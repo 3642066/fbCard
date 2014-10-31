@@ -172,10 +172,10 @@
 						// Store data.location so that we have a convenience copy
 						var location = data.location;
 						// Create an array with the undefined elements removed
-						var validLocationDataArray = [ location.city, location.state, location.street, location.zip, location.country ]
-												.filter(function(x) { return x != undefined; });
+						var validLocationDataArray = location != undefined ? [ location.city, location.state, location.street, location.zip, location.country ]
+												.filter(function(x) { return x != undefined; }) : undefined;
 						// Make the address string from the valid location data
-						var addressString = validLocationDataArray.join(', ');
+						var addressString = validLocationDataArray != undefined ? validLocationDataArray.join(', ') : undefined;
 
 						$("#address").html(addressString);
 						
