@@ -71,7 +71,9 @@
 					<div id="logo_div" style="height:50px; text-align:center;margin-top:50%;">
 						<p id="logo" style="font-family: segoe ui;font-size: 25px;font-weight: lighter;"></p>
 					</div>
-					<p id= "address" style="margin-top:118px;font-family:segoe ui" class="back_left_margin_10"></p>
+					<div id="address_container">
+						<p id= "address" style="margin-top:118px;font-family:segoe ui" class="back_left_margin_10"></p>
+					</div>
 				 </div>
 				 
 				 
@@ -91,7 +93,11 @@
 				 	</div>
 					
 				 	<div class="back_section_header back_left_margin_10">
+						<h5>Founded :</h5>
 				 		<p id="founded"></p>
+					</div>
+					
+					<div class="back_section_header back_left_margin_10">
 				 		<h5>Website :</h5>
 				 		<p id="website"></p>
 				 	</div>
@@ -128,13 +134,20 @@
 				var user_input = $("#search").val();
 				var fina_url = url+user_input;
 				
+				var backElements = [
+					$("#overview"),
+					$("#catagory"),
+					$("#founded"),
+					$("#website"),
+					$("#address")
+				];
+				
 				if(user_input=="")
 				{
 				
 					$("likes").html("Oooi Miya ! ");
 					$("#cover").attr("src","assets/miya.jpg");
 					$("page_name").html("");
-					
 					
 				} else {
 				
@@ -150,7 +163,7 @@
 						$("#likes").html(data.likes);
 						$("#logo").html(data.name);
 						$("#catagory").html(data.category);
-						$("#founded").html("founded : " + data.founded);
+						$("#founded").html(data.founded);
 						$("#website").html(data.website);
 						var c_overview = (data.company_overview).slice(0,100);
 						$("#overview").html(c_overview);
@@ -173,8 +186,15 @@
 						$("page_name").html("");
 					
 				})
-				.complete(function() {  });
-				
+				.complete(function() {
+					// Hide any of the back sections that have no data in them
+					$.each(backElements, function() {
+						if(this.html().length == 0) {
+							this.parent().hide();
+						}
+					});
+				});
+					
 				
 				//
 				
