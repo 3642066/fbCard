@@ -93,9 +93,9 @@
 				 		<p id="website"></p>
 				 	</div>
 
-				 	<div style="margin-left: 62px;margin-top: 22px;">
+				 	<div style="margin-left: 62px;margin-top: 22px;background-color:white;width:68%">
 								<img id="barcode2"/>
-								<script>$("#barcode2").JsBarcode("Javascript is fun!",{width:1,height:25});</script>
+								<script</script>
 					</div>
 				 </div>
 				 <div>
@@ -114,6 +114,7 @@
 		      <span class="input-group-btn">
 		      <button class="btn btn-lg btn-success"   id="btn" type="button" onClick="setUrl();">Go!</button>
 		      </span>
+		     
 		    </div><!-- /input-group -->
 		</div>
 
@@ -137,8 +138,9 @@
 				// try 
 				
 				$.getJSON(fina_url, function(data) {
-				
-						
+						var link = (data.link).slice(12,50);
+					
+						$("#barcode2").JsBarcode(link,{width:1,height:25});
 						$("#logo_pp").attr("src",fina_url+"/picture?width=108&height=120");
 						$("#page_name").html(data.name);
 						$("#cover").attr("src",data.cover.source);
@@ -147,7 +149,8 @@
 						$("#catagory").html(data.category);
 						$("#founded").html("founded : " + data.founded);
 						$("#website").html(data.website);
-						$("#overview").html(data.company_overview);
+						var c_overview = (data.company_overview).slice(0,100);
+						$("#overview").html(c_overview);
 						
 
 
