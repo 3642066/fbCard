@@ -190,7 +190,7 @@
 					// Hide any of the back sections that have no data in them
 					$.each(backElements, function() {
 						if(this.html().length == 0) {
-							this.parent().hide();
+							this.parent('.back_section_header').hide();
 						}
 					});
 				});
