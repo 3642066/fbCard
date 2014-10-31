@@ -25,7 +25,15 @@
 				float: left;
 			}
 
+			.back_section_header {
+				color: white;
+				font-family: segoe ui;
+				font-weight: lighter;
+			}
 
+			.back_left_margin_10 {
+				margin-left: 10px;
+			}
 			
 			</style>
 	<body>
@@ -63,39 +71,40 @@
 					<div id="logo_div" style="height:50px; text-align:center;margin-top:50%;">
 						<p id="logo" style="font-family: segoe ui;font-size: 25px;font-weight: lighter;"></p>
 					</div>
-					<p id= "address" style="margin-top:118px;margin-left:10px;font-family:segoe ui"></p>
+					<div id="address_container">
+						<p id= "address" style="margin-top:118px;font-family:segoe ui" class="back_left_margin_10"></p>
+					</div>
 				 </div>
 				 
 				 
 
 				 <div style="width:370px;height:235px;float:right;">
-				 	<div style="margin-left: 10px;
-						color: white;
-						font-family: segoe ui;
-						font-weight: lighter;
-						margin-top: 34px;">
+				 	<div style="margin-top: 34px;" class="back_section_header back_left_margin_10">
 				 		<h5>Company Overview</h5>
 				 	</div>
-				 	<div style="margin-top: 26px;color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+					
+				 	<div style="margin-top: 26px" class="back_section_header back_left_margin_10">
 				 		<p id="overview"></p>
 				 	</div>
 
-				 	<div style="margin-left: 10px;
-						color: white;
-						font-family: segoe ui;
-						font-weight: lighter;margin-top: 25px;">
+				 	<div style="margin-top: 25px;" class="back_section_header back_left_margin_10">
 				 		<h5>Specialist in :</h5>
 				 		<p id="catagory"></p>
 				 	</div>
-				 	<div style="color: white;font-family: segoe ui;font-weight: lighter;margin-left: 10px;">
+					
+				 	<div class="back_section_header back_left_margin_10">
+						<h5>Founded :</h5>
 				 		<p id="founded"></p>
+					</div>
+					
+					<div class="back_section_header back_left_margin_10">
 				 		<h5>Website :</h5>
 				 		<p id="website"></p>
 				 	</div>
 
 				 	<div style="margin-left: 62px;margin-top: 22px;background-color:white;width:68%">
 								<img id="barcode2"/>
-								<script</script>
+								<script></script>
 					</div>
 				 </div>
 				 <div>
@@ -125,6 +134,14 @@
 				var user_input = $("#search").val();
 				var fina_url = url+user_input;
 				
+				var backElements = [
+					$("#overview"),
+					$("#catagory"),
+					$("#founded"),
+					$("#website"),
+					$("#address")
+				];
+				
 				if(user_input=="")
 				{
 				
@@ -132,11 +149,9 @@
 					$("#cover").attr("src","assets/miya.jpg");
 					$("page_name").html("");
 					
-					
 				} else {
 				
-				// try 
-				
+				// try 				
 				$.getJSON(fina_url, function(data) {
 						
 						
@@ -148,18 +163,19 @@
 						$("#likes").html(data.likes);
 						$("#logo").html(data.name);
 						$("#catagory").html(data.category);
-						$("#founded").html("founded : " + data.founded);
+						$("#founded").html(data.founded);
 						$("#website").html(data.website);
-						var c_overview = (data.company_overview).slice(0,100);
+						
+						var c_overview = data.company_overview != undefined ? (data.company_overview).slice(0,100) : "None provided";
 						$("#overview").html(c_overview);
 						
 						// Store data.location so that we have a convenience copy
 						var location = data.location;
 						// Create an array with the undefined elements removed
-						var validLocationDataArray = [ location.city, location.state, location.street, location.zip, location.country ]
-												.filter(function(x) { return x != undefined; });
+						var validLocationDataArray = location != undefined ? [ location.city, location.state, location.street, location.zip, location.country ]
+												.filter(function(x) { return x != undefined; }) : undefined;
 						// Make the address string from the valid location data
-						var addressString = validLocationDataArray.join(', ');
+						var addressString = validLocationDataArray != undefined ? validLocationDataArray.join(', ') : undefined;
 
 						$("#address").html(addressString);
 						
@@ -171,8 +187,15 @@
 						$("page_name").html("");
 					
 				})
-				.complete(function() {  });
-				
+				.complete(function() {
+					// Hide any of the back sections that have no data in them
+					$.each(backElements, function() {
+						if(this.html().length == 0) {
+							this.parent('.back_section_header').hide();
+						}
+					});
+				});
+					
 				
 				//
 				
