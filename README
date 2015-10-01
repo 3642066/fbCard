@@ -3,3 +3,5 @@ ReadMe :
 A very basic facebook api works , this project can automatically make a vcard for any facebook page. simply input the username of the pages 
 
 try demo : http://shemul.github.io/fbCard/
+
+N:B : Facebook has changed their public graph api , the graph reqeust must be through some accesstoken.. :(
